@@ -1,65 +1,56 @@
-# ✨ AI Quote Generator
+# Nanobot Quote Generator
 
-**AI Quote Generator** is a one‑click web app that generates unique inspirational quotes using AI, stores your history, and lets you save favorites — perfect for students and professionals who need daily motivation even in restricted network environments.
+**Nanobot Quote Generator** is an AI-powered web app that generates original inspirational quotes using a local LLM (Ollama) orchestrated through the NanoBot AI agent framework with MCP tools.
 
 ---
 
 ## Product Context
 
 ### End Users
-- Students and office workers needing quick inspiration or motivation.
-- Developers working on university VMs where external AI tools (Telegram bots, ChatGPT) are restricted or require a VPN.
+- Students and professionals who need quick daily inspiration for motivation or focus.
+- Content creators looking for unique quotes for social media, presentations, or articles.
+- Anyone seeking mood-based inspiration — whether they need energy before a workout, wisdom for reflection, or a love quote for a special moment.
+- Developers and tech enthusiasts interested in seeing AI agents (NanoBot + MCP + Ollama) work in a practical, everyday tool.
 
 ### The Problem
-Traditional quote websites are cluttered with ads, require endless scrolling, and show the same repetitive quotes. Furthermore, university VMs often block access to external services, leaving users without fresh, unique content when they need a quick mental boost.
+People spend time searching for good quotes online, but most quote sites offer the same recycled clichés from famous figures. There's no personalization, no mood filtering, and no AI interaction. Users also can't get explanations or have a conversation about the meaning behind a quote.
 
 ### Our Solution
-A one‑sentence pitch: **A fully local, Dockerizable AI quote generator that creates unique quotes, saves history, and manages favorites directly on your VM.**
+A one-sentence pitch: **A fully local AI quote generator that creates unique, mood-based quotes with an interactive bot you can talk to.**
 
 ---
 
-## Features and Implementation Plan
+## Features
 
-### Version 1: The Core Logic (Task 3)
-- One‑Click Quote Generation: Generate a random inspirational quote with a single button press.
-- Quote History: Automatically save every generated quote to SQLite database with timestamps.
-- Clean Web Interface: Simple, intuitive layout with a prominent generate button.
-
-### Version 2: The Interactive Experience (Task 4)
-- Favorites System: Save quotes you love to a separate "Favorites" tab.
-- Remove from Favorites: Delete quotes from favorites with one click.
-- History & Favorites Tabs: Easy navigation between recent quotes and saved favorites.
-- LLM Integration: Powered by local Ollama (llama3.2:1b) or OpenAI API for truly unique, AI‑generated quotes.
-- Live Status Indicators: "Generating..." spinner and success toasts for better UX.
-
-### Planned for Future Versions
-- Dark/Light theme toggle
-- Export favorites to PDF
-- Copy quote to clipboard
-- Quote categories and tags
-- Daily quote notifications
+- Instant mood-based quote generation (5+ categories: Motivation, Love, Success, Wisdom, Energy)
+- Interactive chat with NanoBot for explanations and custom requests
+- Save favorites and browse full history with category filters
+- Daily statistics dashboard (quotes generated, top categories)
+- Runs 100% locally via Ollama — no API keys, no cloud costs, fully private
+- Extensible architecture via MCP protocol for future tool additions
 
 ---
 
-## Usage
+## The Ecosystem
 
-1. Open the web app in your browser (http://localhost:8501)
-2. Click **"Generate New Quote"** button
-3. The AI generates a unique quote — it appears on screen
-4. The quote is automatically saved to **History**
-5. Click **"Save to Favorites"** to bookmark quotes you love
-6. View all your saved quotes in the **Favorites** tab
+- **Central server:** hosted on a VM
+- **Persistent:** a managed SQLite database ensuring quotes, favorites, history, and chat messages are always available
+- **Instance engine:** an Ollama instance running a local LLM (e.g., llama3.2 or Qwen2)
+- **AI agent gateway:** NanoBot framework orchestrating requests via MCP protocol
+- **MCP tools server:** wraps Ollama API into typed tools (quotes_generate, quotes_chat, quotes_health)
+- **Streamlit frontend:** UI for quote generation, chat, history, and statistics (falls back to direct Ollama if NanoBot offline)
 
 ---
 
 ## Deployment
 
 ### Prerequisites
-- **OS**: Ubuntu 24.04 (standard for university VMs)
-- **Tools**: Docker and Docker Compose (optional) or Python 3.12+
-- **AI Engine (optional)**: Ollama running on the host machine (`ollama pull llama3.2:1b`)
+- OS: Ubuntu 24.04 (or any Linux distribution)
+- Tools: Docker and Docker Compose
+- AI Engine: Ollama running on the host machine (`ollama pull llama3.2:1b`)
 
-### Step‑by‑Step Instructions (without Docker)
+### Step-by-Step Instructions
+
 
 ```bash
 # 1. Update system
