@@ -381,6 +381,12 @@ def chat_ollama_direct(message, chat_history=None):
 # ========== NANOBOT CSS ==========
 NANOBOT_CSS = """
 <style>
+    :root {
+        --background-color: #0a0a2e;
+        --secondary-background-color: #1a1a3e;
+        --text-color: #e0e0ff;
+    }
+
     @keyframes pulse {
         0%, 100% { transform: scale(1); }
         50% { transform: scale(1.05); }
@@ -517,6 +523,29 @@ NANOBOT_CSS = """
     .block-container { background: transparent; }
     main { background: linear-gradient(180deg, #0a0a2e 0%, #1a0a2e 100%); }
     [data-testid="stSidebar"] { background: #0d0d30; }
+
+    /* Force dark theme on ALL Streamlit elements */
+    [data-testid="stAppViewContainer"] { background: #0a0a2e !important; }
+    [data-testid="stHeader"] { background: transparent !important; }
+    .stTabs [data-baseweb="tab-list"] { background: #1a1a3e !important; }
+    .stTabs [data-baseweb="tab"] { background: #1a1a3e !important; color: #e0e0ff !important; }
+    .stTabs [aria-selected="true"] { background: #2a1a4e !important; color: #00ffff !important; }
+    [data-baseweb="select"] > div { background: #1a1a3e !important; }
+    [data-baseweb="popover"] { background: #1a1a3e !important; }
+    [data-baseweb="menu"] { background: #1a1a3e !important; }
+    [role="listbox"] { background: #1a1a3e !important; }
+    [role="option"] { background: #1a1a3e !important; color: #e0e0ff !important; }
+    .stRadio > label { background: #1a1a3e !important; color: #e0e0ff !important; }
+    .stRadio > div[role="radiogroup"] { background: #1a1a3e !important; }
+    input[type="text"], input[type="search"], textarea {
+        background: #1a1a3e !important;
+        color: #e0e0ff !important;
+        border: 1px solid #3a3a5e !important;
+    }
+    .st-emotion-cache-1vbkxwb { background: #1a1a3e !important; }
+    .st-emotion-cache-6qob1r { background: #0d0d30 !important; }
+    .st-emotion-cache-1r4qj8v { background: #1a1a3e !important; }
+    .st-emotion-cache-1kyxreq { background: linear-gradient(90deg, #00ffff, #7b2fff) !important; }
 
     .category-filter {
         background: #1a1a3e;
