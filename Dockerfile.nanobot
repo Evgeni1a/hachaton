@@ -1,0 +1,17 @@
+FROM python:3.14-slim-bookworm
+
+WORKDIR /app
+
+# Install uv
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
+
+# Copy MCP server and nanobot config
+COPY mcp/ /app/mcp/
+COPY nanobot-quote/ /app/nanobot-quote/
+
+# Install dependencies
+WORKDIR /app/nanobot-quote
+RUN uv sync --frozen
+
+WORKDIR /app/nanobot-quote
+CMD ["python", "entrypoint.py"]

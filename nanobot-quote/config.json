@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "gateway": {
+    "host": "127.0.0.1",
+    "port": 8502
+  },
+  "llm": {
+    "api_type": "openai",
+    "api_base_url": "http://localhost:11434/v1",
+    "api_model": "llama3.2:1b"
+  },
+  "tools": {
+    "mcp_servers": {}
+  },
+  "workspace": {
+    "path": "./workspace"
+  }
+}

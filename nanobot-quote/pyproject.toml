@@ -1,0 +1,18 @@
+[project]
+name = "nanobot-quote"
+version = "0.1.0"
+description = "Nanobot AI gateway for quote generation with MCP tools"
+requires-python = ">=3.14"
+dependencies = [
+    "pydantic",
+    "pydantic-settings",
+    "mcp-quotes",
+    "nanobot-ai",
+]
+
+[tool.uv.sources]
+nanobot-ai = { url = "https://github.com/HKUDS/nanobot/archive/e7d371ec1e6531b28898ec2c869ef338e8dd46ec.zip" }
+
+[tool.uv.sources.mcp-quotes]
+path = "../mcp/mcp-quotes"
+editable = true

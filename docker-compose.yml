@@ -1,0 +1,75 @@
+services:
+  # ========== Ollama (LLM) ==========
+  ollama:
+    image: ollama/ollama:latest
+    container_name: nanobot-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ========== MCP Quotes Server ==========
+  mcp-quotes:
+    build:
+      context: .
+      dockerfile: Dockerfile.nanobot
+    container_name: nanobot-mcp-quotes
+    depends_on:
+      ollama:
+        condition: service_healthy
+    environment:
+      NANOBOT_QUOTES_OLLAMA_URL: http://ollama:11434
+      NANOBOT_QUOTES_OLLAMA_MODEL: llama3.2:1b
+    volumes:
+      - ./mcp:/app/mcp
+      - ./nanobot-quote:/app/nanobot-quote
+    restart: unless-stopped
+
+  # ========== Nanobot Gateway ==========
+  nanobot:
+    build:
+      context: .
+      dockerfile: Dockerfile.nanobot
+    container_name: nanobot-gateway
+    depends_on:
+      ollama:
+        condition: service_healthy
+    ports:
+      - "8502:8502"
+    environment:
+      NANOBOT_LLM_MODEL: llama3.2:1b
+      NANOBOT_OLLAMA_URL: http://ollama:11434
+      NANOBOT_GATEWAY_HOST: 0.0.0.0
+      NANOBOT_GATEWAY_PORT: 8502
+    volumes:
+      - ./mcp:/app/mcp
+      - ./nanobot-quote:/app/nanobot-quote
+    restart: unless-stopped
+
+  # ========== Streamlit UI (optional) ==========
+  streamlit:
+    image: python:3.14-slim-bookworm
+    container_name: nanobot-streamlit
+    ports:
+      - "8501:8501"
+    working_dir: /app
+    volumes:
+      - ./app.py:/app/app.py
+      - quotes_data:/app/data
+    command: >
+      sh -c "pip install streamlit requests && streamlit run app.py --server.address=0.0.0.0"
+    environment:
+      OLLAMA_URL: http://ollama:11434
+    depends_on:
+      - ollama
+    restart: unless-stopped
+
+volumes:
+  ollama_data:
+  quotes_data:

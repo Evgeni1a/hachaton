@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(c:\\Users\\User\\Desktop\\software-engineering-toolkit\\se-toolkit-lab-3/**)"
+    ]
+  }
+}
